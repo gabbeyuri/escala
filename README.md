@@ -18,7 +18,7 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 | [7] Meta Ads | Cria pixel, campanha e otimiza (metodo YM MKT) | dia 21 |
 | [8] Config | Diagnostico, instalacao, metricas | dia 21 |
 
-> Versao de lancamento: so a mineracao via Reclame Aqui esta liberada. O restante da skill sera entregue no dia 21.
+> Versao de lancamento: so a mineracao via Reclame Aqui esta liberada. O restante da skill sera revelado dia 21, e so quem estiver no grupo vai ter acesso. Entra agora: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw
 
 ## Como instalar (passo a passo)
 
