@@ -10,7 +10,7 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 |--------|-----------|--------|
 | [1] Setup | Diagnostico de dependencias | dia 21 |
 | [2] Minerar | Reclame Aqui (via dev-browser) | **LIBERADO** |
-| [2] Minerar | Biblioteca Meta | dia 21 |
+| [2] Minerar | Biblioteca Meta | **LIBERADO** |
 | [3] Analisar | Analise completa de oferta + definir produto | dia 21 |
 | [4] Entregavel | Gera PDF/pack/planilha/simulado completo | dia 21 |
 | [5] Funil | Modela pagina de vendas a partir do concorrente | dia 21 |
@@ -18,7 +18,7 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 | [7] Meta Ads | Cria pixel, campanha e otimiza (metodo YM MKT) | dia 21 |
 | [8] Config | Diagnostico, instalacao, metricas | dia 21 |
 
-> Versao de lancamento: so a mineracao via Reclame Aqui esta liberada. O restante da skill sera revelado dia 21, e so quem estiver no grupo vai ter acesso. Entra agora: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw
+> Versao de lancamento: so a mineracao (Reclame Aqui e Biblioteca de Anuncios) esta liberada. O restante da skill sera revelado dia 21, e so quem estiver no grupo vai ter acesso. Entra agora: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw
 
 ## Como instalar (passo a passo)
 
@@ -36,7 +36,7 @@ git clone https://github.com/gabbeyuri/escala.git ~/.claude/skills/escala
 /escala
 ```
 
-4. Escolha `[2] Minerar` > `[A] Reclame Aqui`. Na primeira vez a skill confere se voce tem Python, Edge e dev-browser e instala o que faltar.
+4. Escolha `[2] Minerar` e o metodo: `[A] Reclame Aqui` ou `[B] Biblioteca de Anuncios`. No Reclame Aqui, na primeira vez a skill confere se voce tem Python, Edge e dev-browser e instala o que faltar.
 
 ## Minerador Reclame Aqui
 

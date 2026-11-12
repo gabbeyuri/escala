@@ -8,7 +8,7 @@ allowed-tools: [Read, Write, Glob, Grep, Bash, AskUserQuestion]
 
 Sistema completo pra rodar operacao de low ticket. Funciona como um software interativo dentro do Claude Code.
 
-**VERSAO DE LANCAMENTO:** nesta versao so a mineracao via Reclame Aqui ([2] > [A]) esta liberada. O resto e revelado no dia 21, so pra quem estiver no grupo (https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw).
+**VERSAO DE LANCAMENTO:** nesta versao so a mineracao ([2] — Reclame Aqui e Biblioteca de Anuncios) esta liberada. O resto e revelado no dia 21, so pra quem estiver no grupo (https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw).
 
 ## Ao iniciar
 
@@ -38,9 +38,9 @@ Quando qualquer fluxo terminar, perguntar se quer voltar ao menu ou sair.
 
 ---
 
-## MODULOS BLOQUEADOS — [1] [3] [4] [5] [6] [7] [8] e o Metodo [B]
+## MODULOS BLOQUEADOS — [1] [3] [4] [5] [6] [7] [8]
 
-Se o usuario escolher [1], [3], [4], [5], [6], [7], [8] ou o Metodo [B] dentro da mineracao, NAO executar nada (nenhuma ferramenta) e mostrar so isto:
+Se o usuario escolher [1], [3], [4], [5], [6], [7] ou [8], NAO executar nada (nenhuma ferramenta) e mostrar so isto:
 
 ```
 ============================================
@@ -73,7 +73,7 @@ Entra agora pra nao ficar de fora:
 
 Mostrar a tela exatamente assim, com o link completo do grupo (nao encurtar, nao trocar). Nao especular nem inventar o que vai ser revelado no dia 21 — o suspense e proposital. Se o usuario perguntar o que vem dia 21, responder so: "Dia 21 a gente revela. Entra no grupo pra saber primeiro: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw"
 
-REGRA DE BLOQUEIO: isso vale tambem se o usuario pedir as funcoes desses modulos em texto livre, fora do menu (ex: "analisa essa oferta", "modela esse funil", "faz os criativos", "gera o entregavel", "sobe a campanha", "busca na biblioteca de anuncios"). Dentro do /escala, responder com a mesma tela de bloqueio acima. Nao improvisar uma versao desses modulos.
+REGRA DE BLOQUEIO: isso vale tambem se o usuario pedir as funcoes desses modulos em texto livre, fora do menu (ex: "analisa essa oferta", "modela esse funil", "faz os criativos", "gera o entregavel", "sobe a campanha"). Dentro do /escala, responder com a mesma tela de bloqueio acima. Nao improvisar uma versao desses modulos.
 
 ---
 
@@ -92,18 +92,16 @@ MINERACAO DE OFERTAS
 
 Metodo:
   [A] Reclame Aqui (gratis — scrapa gateways BR)   LIBERADO
-  [B] Biblioteca de Anuncios (Meta)                (dia 21)
+  [B] Biblioteca de Anuncios (Meta — busca visual)  LIBERADO
 
 Qual metodo?
 ```
 
-Se escolher [B], mostrar a tela de bloqueio.
-
 ---
 
-### Checagem antes de minerar (so na primeira vez)
+### Checagem antes de minerar pelo Reclame Aqui (so na primeira vez)
 
-Antes de rodar o script pela primeira vez, conferir rapido (sem mostrar comando nenhum pro usuario, so o resultado):
+Antes de rodar o script do Metodo A pela primeira vez, conferir rapido (sem mostrar comando nenhum pro usuario, so o resultado):
 
 1. **Python:** `python --version`
 2. **Edge:** existe `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
@@ -252,6 +250,152 @@ Proximo passo sugerido:
 
 ---
 
+### Metodo B — Biblioteca de Anuncios (Meta)
+
+#### Logica
+A Biblioteca de Anuncios mostra TODOS os anuncios ativos no Brasil. Paginas com muitos anuncios ativos sobre o mesmo produto = oferta escalada. Buscar por palavras-chave de low ticket e ver quem ta rodando pesado.
+
+#### Passo 1 — Escolher nicho
+
+```
+BIBLIOTECA DE ANUNCIOS — META
+===============================
+
+Escolha o nicho pra buscar:
+
+  [1] Geral (todos os nichos)
+  [2] Saude / Emagrecimento
+  [3] Artesanato / DIY
+  [4] Culinaria
+  [5] Beleza
+  [6] Educacao / Concurso
+  [7] Renda / Digital
+  [8] Esoterico
+  [9] Design / Social Media
+
+Digite o numero:
+```
+
+#### Passo 2 — Palavras-chave
+
+Mostrar palavras-chave curadas do nicho escolhido. O usuario escolhe uma ou digita a sua.
+
+**[1] Geral:**
+```
+  1. pack                     6. combo
+  2. mega pack                7. atividades
+  3. kit completo             8. projetos
+  4. +500                     9. R$19,90
+  5. +1000                   10. R$9,90
+```
+
+**[2] Saude / Emagrecimento:**
+```
+  1. seca barriga             5. barriga chapada
+  2. truque pra emagrecer     6. detox
+  3. receitas fit             7. dieta
+  4. desinchar                8. metabolismo
+```
+
+**[3] Artesanato / DIY:**
+```
+  1. croche                   5. costura moldes
+  2. bordado                  6. trico
+  3. amigurumi                7. patchwork
+  4. feltro                   8. pintura em tecido
+```
+
+**[4] Culinaria:**
+```
+  1. bolo caseiro             5. brigadeiro gourmet
+  2. confeitaria              6. marmita fit
+  3. doces gourmet            7. bolo no pote
+  4. salgados                 8. receitas lucrativas
+```
+
+**[5] Beleza:**
+```
+  1. unhas decoradas          5. design sobrancelha
+  2. cilios                   6. penteados
+  3. alongamento              7. nail art
+  4. micropigmentacao         8. extensao capilar
+```
+
+**[6] Educacao / Concurso:**
+```
+  1. questoes comentadas      5. reforco escolar
+  2. simulado                 6. plano de aula
+  3. apostila                 7. provas resolvidas
+  4. atividades infantis      8. educacao infantil
+```
+
+**[7] Renda / Digital:**
+```
+  1. renda extra              5. dropshipping
+  2. PLR                      6. marketing digital
+  3. canva templates          7. dinheiro online
+  4. trafego pago             8. afiliado
+```
+
+**[8] Esoterico:**
+```
+  1. tarot                    5. simpatias
+  2. signos                   6. meditacao
+  3. mapa astral              7. cristais
+  4. oracoes                  8. numerologia
+```
+
+**[9] Design / Social Media:**
+```
+  1. artes editaveis          5. templates canva
+  2. logos prontos             6. identidade visual
+  3. posts prontos            7. artes para redes
+  4. feed instagram           8. stories prontos
+```
+
+```
+Escolha uma palavra-chave (numero) ou digite a sua:
+> [resposta]
+```
+
+#### Passo 3 — Abrir Biblioteca
+
+Construir a URL da Biblioteca de Anuncios com a palavra-chave escolhida:
+
+URL: `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=[KEYWORD]&media_type=all`
+
+Onde `[KEYWORD]` e a palavra-chave URL-encoded.
+
+Abrir a URL no navegador do usuario via dev-browser. Se dev-browser nao estiver disponivel, mostrar a URL pra copiar.
+
+```
+Abrindo Biblioteca de Anuncios...
+
+Termo: "[keyword]"
+URL: [url completa]
+
+O QUE PROCURAR:
+  - Paginas com 5+ anuncios ativos = sinal de escala
+  - Anuncios rodando ha 30+ dias = lucrativos
+  - Videos com variacoes = ta testando (funciona)
+  - Precos baixos nos criativos (R$7-47) = low ticket
+
+Quando encontrar uma oferta boa:
+  → Copie o nome da pagina e o link do anuncio
+  → Analise completa, funil e criativos: dia 21, so pra quem
+    estiver no grupo: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw
+
+============================================
+
+[N] Buscar outro termo
+[T] Trocar de nicho
+[0] Voltar ao menu
+```
+
+---
+
+---
+
 ## Regras gerais
 
 1. Sempre manter o formato visual com `===` e tabelas pra parecer um software
@@ -261,4 +405,4 @@ Proximo passo sugerido:
 5. Manter tom direto e objetivo — sem explicacoes longas durante a execucao
 6. Sempre oferecer opcao de voltar ao menu
 7. Salvar resultados de mineracao em `./mineracao/[data]-resultados.md` pra consulta futura
-8. Qualquer coisa fora da mineracao via Reclame Aqui: tela de bloqueio (TRANCADO ATE O DIA 21, com o link do grupo)
+8. Qualquer coisa fora da mineracao ([2] A e B): tela de bloqueio (TRANCADO ATE O DIA 21, com o link do grupo)
