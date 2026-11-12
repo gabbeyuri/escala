@@ -205,7 +205,10 @@ def main():
     ads = []
     bruto = PASTA / f"{HOJE}-biblioteca-{nome}-bruto.json"
     if "--reusar" in sys.argv and bruto.exists():
-        ads = json.loads(bruto.read_text(encoding="utf-8"))
+        try:
+            ads = json.loads(bruto.read_text(encoding="utf-8"))
+        except Exception:
+            ads = []  # arquivo vazio/quebrado: coleta tudo de novo
         feitos = {a["q"] for a in ads}
         print(f"Reusando coleta de hoje: {len(ads)} anuncios ({len(feitos)} termos)", flush=True)
         termos = [t for t in termos if t not in feitos]
