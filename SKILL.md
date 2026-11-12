@@ -80,7 +80,7 @@ REGRA DE BLOQUEIO: isso vale tambem se o usuario pedir as funcoes desses modulos
 ## [2] MINERAR OFERTAS ESCALADAS
 
 ### Objetivo
-Encontrar ofertas de infoprodutos que estao vendendo muito (escaladas) no mercado BR, usando reclamacoes como proxy de volume.
+Encontrar ofertas de infoprodutos que estao vendendo muito (escaladas) no mercado BR: pelo volume de reclamacoes (Reclame Aqui) ou pelo volume de anuncios ativos (Biblioteca de Anuncios).
 
 ### Fluxo
 
@@ -92,36 +92,87 @@ MINERACAO DE OFERTAS
 
 Metodo:
   [A] Reclame Aqui (gratis — scrapa gateways BR)   LIBERADO
-  [B] Biblioteca de Anuncios (Meta — busca visual)  LIBERADO
+  [B] Biblioteca de Anuncios (Meta)                LIBERADO
 
 Qual metodo?
 ```
 
 ---
 
-### Checagem antes de minerar pelo Reclame Aqui (so na primeira vez)
+### Checagem de primeiro uso (vale pro [A] e pro [B])
 
-Antes de rodar o script do Metodo A pela primeira vez, conferir rapido (sem mostrar comando nenhum pro usuario, so o resultado):
+A mineracao roda em SEGUNDO PLANO pelo **dev-browser** (navegador automatico, sem abrir janela). Na primeira vez que o usuario entrar no [A] ou no [B], ANTES de minerar, conferir sem mostrar comando nenhum, so o resultado:
 
 1. **Python:** `python --version`
-2. **Edge:** existe `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
-3. **dev-browser:** `dev-browser --help` (ou existe `%APPDATA%\npm\dev-browser.cmd`)
-4. **Node/npm** (so se o dev-browser faltar): `npm --version`
+2. **Node/npm:** `npm --version`
+3. **dev-browser (programa):** `dev-browser --help` (no Windows tambem vale existir `%APPDATA%\npm\dev-browser.cmd`)
+4. **Skill dev-browser:** existe `~/.claude/skills/dev-browser/SKILL.md`
+5. **Edge** (so pro [A] Reclame Aqui): existe `C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
+
+Se faltar o dev-browser (programa ou skill), mostrar ANTES de qualquer coisa:
 
 ```
-CHECAGEM
-=========
+PRIMEIRO USO — PRECISA DO DEV-BROWSER
+=======================================
+
+A mineracao da Escala roda em segundo plano
+com a skill dev-browser: um navegador
+automatico que entra na Biblioteca de Anuncios
+e no Reclame Aqui pra voce, sem abrir janela
+e sem travar seu computador.
+
+Ela ainda nao ta instalada aqui.
+
   Python        [OK]
-  Edge          [OK]
+  Node/npm      [OK]
   dev-browser   [FALTA]
+
+[I] Instalar agora (leva ~2 min)
+[0] Voltar ao menu
 ```
 
-Se faltar algo, oferecer instalar:
-- dev-browser: `npm install -g dev-browser` (se nao tiver Node, mandar instalar em nodejs.org e reabrir o terminal)
-- Python: mandar instalar em python.org marcando "Add Python to PATH"
-- Edge: vem com o Windows; se nao tiver, baixar em microsoft.com/edge
+Se [I], instalar nesta ordem e mostrar o progresso:
+1. Se faltar Node: mandar instalar em nodejs.org (versao LTS), fechar e reabrir o Claude Code, e rodar /escala de novo. Parar aqui.
+2. Se faltar Python: mandar instalar em python.org marcando "Add Python to PATH", fechar e reabrir o Claude Code. Parar aqui.
+3. `npm install -g dev-browser`
+4. `dev-browser install` (baixa o navegador que roda em segundo plano)
+5. Criar a skill dev-browser em `~/.claude/skills/dev-browser/SKILL.md` com este conteudo exato:
 
-Depois que tudo estiver [OK], seguir pro Passo 1.
+```markdown
+---
+name: dev-browser
+description: Browser automation with persistent page state. Use when users ask to navigate websites, fill forms, take screenshots, extract web data, test web apps, or automate browser workflows. Trigger phrases include "go to [url]", "click on", "fill out the form", "take a screenshot", "scrape", "automate", "test the website", "log into", or any browser interaction request.
+---
+
+# Dev Browser
+
+A CLI for controlling browsers with sandboxed JavaScript scripts.
+
+## Installation
+
+    npm install -g dev-browser
+    dev-browser install
+
+## Usage
+
+Run `dev-browser --help` to learn more.
+```
+
+6. Testar: rodar `dev-browser --headless --timeout 60` com um script que abre `https://www.facebook.com/ads/library/` e imprime o titulo da pagina.
+
+```
+INSTALANDO DEV-BROWSER
+=======================
+  [1/3] Programa dev-browser ........ ok
+  [2/3] Navegador de segundo plano .. ok
+  [3/3] Skill dev-browser ........... ok
+
+Pronto! A mineracao ja roda em segundo plano.
+```
+
+Edge (so pro [A]): vem com o Windows; se faltar, baixar em microsoft.com/edge.
+
+Depois que tudo estiver [OK], seguir pro metodo escolhido.
 
 ---
 
@@ -136,7 +187,7 @@ Gateways de pagamento recebem reclamacoes de compradores. Quanto mais reclamacao
 - Script: `minerador-reclameaqui.py` na pasta da skill (`~/.claude/skills/escala/`)
 - Resultados salvos em `./mineracao/[data]-reclameaqui.json`
 
-**Pre-requisitos:** Edge instalado + dev-browser instalado (`npm install -g dev-browser`)
+**Pre-requisitos:** Edge + dev-browser (ver Checagem de primeiro uso)
 
 #### Gateways (7 foco low ticket)
 
@@ -278,7 +329,7 @@ Digite o numero:
 
 #### Passo 2 — Palavras-chave
 
-Mostrar palavras-chave curadas do nicho escolhido. O usuario escolhe uma ou digita a sua.
+Mostrar palavras-chave curadas do nicho escolhido, SEMPRE com a opcao [T] Todas as palavras no final. O usuario escolhe uma, varias (separadas por virgula), [T] ou digita a sua.
 
 **[1] Geral:**
 ```
@@ -353,44 +404,81 @@ Mostrar palavras-chave curadas do nicho escolhido. O usuario escolhe uma ou digi
   4. feed instagram           8. stories prontos
 ```
 
+Embaixo da lista do nicho, sempre mostrar:
+
 ```
-Escolha uma palavra-chave (numero) ou digite a sua:
+  [T] Todas as palavras desse nicho
+
+Escolha uma palavra-chave (numero), varias (ex: 1,3,5),
+[T] pra todas, ou digite a sua:
 > [resposta]
 ```
 
-#### Passo 3 — Abrir Biblioteca
+Se [T]: usar todas as palavras do nicho escolhido. Avisar o tempo: ~2 min por palavra (ex: 10 palavras = ~20 min). A Biblioteca costuma reduzir a leitura depois de ~8 buscas seguidas; se um termo voltar com bem menos anuncios que os outros, avisar no resultado em vez de tratar como oferta fraca.
 
-Construir a URL da Biblioteca de Anuncios com a palavra-chave escolhida:
+#### Passo 3 — Minerar em segundo plano
 
-URL: `https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=BR&q=[KEYWORD]&media_type=all`
+Rodar o minerador (fica na pasta da skill), a partir do diretorio de trabalho do usuario:
 
-Onde `[KEYWORD]` e a palavra-chave URL-encoded.
+```bash
+python ~/.claude/skills/escala/minerador-biblioteca.py "[termo1,termo2,...]" [nome-da-busca]
+```
 
-Abrir a URL no navegador do usuario via dev-browser. Se dev-browser nao estiver disponivel, mostrar a URL pra copiar.
+Rodar com `run_in_background` (pode passar de 10 min) e mostrar:
 
 ```
-Abrindo Biblioteca de Anuncios...
+MINERANDO NA BIBLIOTECA DE ANUNCIOS
+=====================================
+Termos: [lista]
+Tempo estimado: ~[2 x qtd termos] min
+Rodando em segundo plano (dev-browser) — pode continuar usando o PC.
+```
 
-Termo: "[keyword]"
-URL: [url completa]
+O script:
+1. Abre cada termo na Biblioteca (Brasil, anuncios ativos) e rola ate o fim
+2. Agrupa os anuncios por anunciante (quantidade, variacoes, dias rodando)
+3. Tira marca grande, loja fisica, app e quem nao vende infoproduto
+4. Abre a pagina de cada oferta e le preco e gateway
+5. Separa em low ticket (R$7-30) e ticket medio (R$31-97)
+6. Salva `./mineracao/[data]-biblioteca-[nome].json` (ja rankeado pelo campo `score`)
+7. Pula anunciantes que ja apareceram em levas anteriores (`./mineracao/vistos.txt`)
 
-O QUE PROCURAR:
-  - Paginas com 5+ anuncios ativos = sinal de escala
-  - Anuncios rodando ha 30+ dias = lucrativos
-  - Videos com variacoes = ta testando (funciona)
-  - Precos baixos nos criativos (R$7-47) = low ticket
+#### Passo 4 — Mostrar em LEVAS DE 20
 
-Quando encontrar uma oferta boa:
-  → Copie o nome da pagina e o link do anuncio
-  → Analise completa, funil e criativos: dia 21, so pra quem
-    estiver no grupo: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw
+Ler o JSON e mostrar SEMPRE 20 ofertas por vez, na ordem do `score`. Separar em duas tabelas: **Low ticket** e **Ticket medio**.
 
-============================================
+A tabela vai em MARKDOWN NORMAL (fora de bloco de codigo), pra o link ficar clicavel:
 
-[N] Buscar outro termo
+| # | | Anunciante | Anuncios | Var. | Dias | Preco | Gateway | Oferta | Link |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | 🔥 | [adv] | [n] | [nv] | [days]d | R$[preco final] | [gw ou —] | [o que vende, em poucas palavras] | [Abrir]([link]) |
+
+- **Preco:** usar `pag.fim` (preco final da pagina); se vazio, os menores de `pag.precos`. Se tiver 2 planos, mostrar "R$10 / R$27".
+- **Oferta:** resumir o que vende em ate 8 palavras, a partir de `hook` e `pag.titulo`. Nunca inventar o que nao esta la.
+- **Link:** campo `link` (anuncio mais antigo do anunciante na Biblioteca).
+
+**FOGUINHO — classificar cada oferta (opiniao: modelar essa daria bom?):**
+- 🔥 **quente** — muitas variacoes + rodando ha bastante tempo + da pra replicar sem expert + producao barata (PDF, pack, planilha, kit)
+- 🟡 **morno** — sinal bom mas falta algo (pouco tempo rodando, poucas variacoes, ou producao mais trabalhosa)
+- ⚠ **risco** — direito autoral (marca, personagem, obra de terceiros), depende de expert/autoridade, prazo de edital/data, promessa de saude/dinheiro arriscada
+
+Embaixo da tabela, uma linha de legenda: `🔥 quente | 🟡 morno | ⚠ risco`
+
+Depois de mostrar a leva, anotar os anunciantes dela em `./mineracao/vistos.txt` (um por linha) e salvar a leva em `./mineracao/[data]-biblioteca-[nome]-leva[N].md`.
+
+```
+LEVA [N] — [X] de [total] ofertas
+====================================
+
+[M] Mais 20 ofertas (proxima leva)
+[N] Minerar outro termo
 [T] Trocar de nicho
 [0] Voltar ao menu
 ```
+
+Quando acabar as ofertas: avisar e sugerir outro termo ou nicho.
+
+Pra analisar a fundo uma oferta, modelar funil e criativos: dia 21, so pra quem estiver no grupo: https://chat.whatsapp.com/LQYqP14qrwt6OX16JM0JLw
 
 ---
 
@@ -406,3 +494,4 @@ Quando encontrar uma oferta boa:
 6. Sempre oferecer opcao de voltar ao menu
 7. Salvar resultados de mineracao em `./mineracao/[data]-resultados.md` pra consulta futura
 8. Qualquer coisa fora da mineracao ([2] A e B): tela de bloqueio (TRANCADO ATE O DIA 21, com o link do grupo)
+9. Listas de ofertas da Biblioteca: sempre em levas de 20, com 🔥/🟡/⚠ e link clicavel da Biblioteca

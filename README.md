@@ -52,6 +52,16 @@ python minerador-reclameaqui.py cakto,kirvano 10 15
 
 Requer Python, Edge e dev-browser (`npm install -g dev-browser`). Resultados salvos em `./mineracao/`.
 
+## Minerador Biblioteca de Anuncios
+
+O `minerador-biblioteca.py` coleta os anuncios ativos no Brasil de cada termo (em segundo plano, via dev-browser), agrupa por anunciante, le preco e gateway nas paginas e separa low ticket e ticket medio. A skill mostra em levas de 20 com 🔥 quente / 🟡 morno / ⚠ risco.
+
+```bash
+python minerador-biblioteca.py "mega pack,kit completo" minha-busca
+```
+
+Requer Python + dev-browser (`npm install -g dev-browser` e `dev-browser install`). A skill instala no primeiro uso.
+
 ## Estrutura de pastas (geradas automaticamente)
 
 ```
