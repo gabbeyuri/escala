@@ -24,37 +24,19 @@ Skill pro [Claude Code](https://claude.ai/claude-code) que transforma operacao d
 
 1. Tenha o Claude Code instalado no seu computador.
 
-2. No terminal, clone o repositorio da skill:
+2. No terminal, clone a skill direto na pasta de skills do Claude Code:
 
 ```bash
-git clone https://github.com/gabbeyuri/escala.git
+git clone https://github.com/gabbeyuri/escala.git ~/.claude/skills/escala
 ```
 
-3. Copie a skill para a pasta de skills do Claude Code:
-
-```bash
-cp -r escala ~/.claude/skills/escala
-```
-
-4. Entre na pasta da skill:
-
-```bash
-cd escala-ymmkt
-```
-
-5. Crie seu arquivo de configuracao:
-
-```bash
-cp config-escala.example.json config-escala.json
-```
-
-6. Abra o Claude Code e rode o comando da skill:
+3. Abra o Claude Code e rode o comando da skill:
 
 ```text
 /escala
 ```
 
-7. Escolha `[2] Minerar` > `[A] Reclame Aqui`. Na primeira vez a skill confere se voce tem Python, Edge e dev-browser e ajuda a instalar o que faltar.
+4. Escolha `[2] Minerar` > `[A] Reclame Aqui`. Na primeira vez a skill confere se voce tem Python, Edge e dev-browser e instala o que faltar.
 
 ## Minerador Reclame Aqui
 
