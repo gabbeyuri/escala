@@ -6,7 +6,10 @@ anunciante, filtra infoproduto, abre a pagina de cada oferta pra ler preco e
 gateway e salva o ranking em ./mineracao/.
 
 Uso:
-  python minerador-biblioteca.py "pack,mega pack,kit completo" [nome-da-busca]
+  python minerador-biblioteca.py "pack,mega pack,kit completo" [nome-da-busca] [--reusar]
+
+--reusar: aproveita a coleta de hoje com o mesmo nome (se o script parou no
+meio, so coleta os termos que faltaram).
 
 Saida: ./mineracao/[data]-biblioteca-[nome].json (lista rankeada)
 Anunciantes ja mostrados em levas anteriores ficam em ./mineracao/vistos.txt
@@ -33,6 +36,7 @@ except Exception:
     pass
 
 PASTA = Path("mineracao")
+SURROGATE = re.compile("[\ud800-\udfff]")
 TMP = Path.home() / ".dev-browser" / "tmp"
 PAUSA_ENTRE_TERMOS = 20  # segundos
 MAX_PAGINAS = 150        # quantos anunciantes abrir pra ler preco/gateway
@@ -114,7 +118,13 @@ def coletar(termo, i):
     if not alvo.exists():
         return None
     try:
-        return json.loads(alvo.read_text(encoding="utf-8"))
+        r = json.loads(alvo.read_text(encoding="utf-8"))
+        # emoji cortado ao meio vira "surrogate" solto e quebra o salvamento
+        for a in r.get("ads", []):
+            for k, v in a.items():
+                if isinstance(v, str):
+                    a[k] = SURROGATE.sub("", v)
+        return r
     except Exception:
         return None
     finally:
@@ -193,6 +203,12 @@ def main():
 
     # 1) Coleta
     ads = []
+    bruto = PASTA / f"{HOJE}-biblioteca-{nome}-bruto.json"
+    if "--reusar" in sys.argv and bruto.exists():
+        ads = json.loads(bruto.read_text(encoding="utf-8"))
+        feitos = {a["q"] for a in ads}
+        print(f"Reusando coleta de hoje: {len(ads)} anuncios ({len(feitos)} termos)", flush=True)
+        termos = [t for t in termos if t not in feitos]
     for i, q in enumerate(termos, 1):
         r = coletar(q, i)
         if r is None:
@@ -200,9 +216,9 @@ def main():
         else:
             ads += r["ads"]
             print(f"[{i}/{len(termos)}] {q} | {r['total'] or '?'} | {len(r['ads'])} anuncios lidos", flush=True)
+            bruto.write_text(SURROGATE.sub("", json.dumps(ads, ensure_ascii=False)), encoding="utf-8")
         if i < len(termos):
             time.sleep(PAUSA_ENTRE_TERMOS)
-    (PASTA / f"{HOJE}-biblioteca-{nome}-bruto.json").write_text(json.dumps(ads, ensure_ascii=False), encoding="utf-8")
 
     # 2) Agrupar por anunciante e filtrar
     vf = PASTA / "vistos.txt"
@@ -259,7 +275,7 @@ def main():
         final.append(o)
 
     saida = PASTA / f"{HOJE}-biblioteca-{nome}.json"
-    saida.write_text(json.dumps(final, ensure_ascii=False, indent=1), encoding="utf-8")
+    saida.write_text(SURROGATE.sub("", json.dumps(final, ensure_ascii=False, indent=1)), encoding="utf-8")
     print(f"FIM | {len(ads)} anuncios | {len(g)} anunciantes novos | {len(final)} ofertas com preco "
           f"({sum(o['ticket'] == 'low' for o in final)} low, {sum(o['ticket'] == 'medio' for o in final)} medio) "
           f"| {int(time.time() - inicio) // 60} min | {saida}", flush=True)
