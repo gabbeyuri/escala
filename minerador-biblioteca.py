@@ -185,7 +185,8 @@ def main():
     if len(sys.argv) < 2:
         print(__doc__)
         sys.exit(1)
-    termos = [t.strip() for t in sys.argv[1].split(",") if t.strip()]
+    # separa por virgula ou |, mas nao quebra preco ("R$19,90")
+    termos = [t.strip() for t in re.split(r"\||,(?!\d{2}(?!\d))", sys.argv[1]) if t.strip()]
     nome = re.sub(r"[^a-z0-9]+", "-", (sys.argv[2] if len(sys.argv) > 2 else termos[0]).lower()).strip("-") or "busca"
     PASTA.mkdir(exist_ok=True)
     inicio = time.time()
